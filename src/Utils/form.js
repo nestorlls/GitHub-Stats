@@ -3,6 +3,8 @@ function validate(values) {
 
   errors.email = validateMail(values.email);
   errors.password = validatePassword(values.password);
+  errors.firstName = validateFirstName(values.firstName);
+  errors.lastName = validateLastName(values.lastName);
 
   return errors;
 }
@@ -30,6 +32,22 @@ function validatePassword(password) {
     message = 'Required';
   }
 
+  return message;
+}
+
+function validateFirstName(firstName) {
+  let message = '';
+  if (!firstName) {
+    message = 'Required';
+  }
+  return message;
+}
+
+function validateLastName(lastName) {
+  let message = '';
+  if (!lastName) {
+    message = 'Required';
+  }
   return message;
 }
 
