@@ -16,11 +16,7 @@ const apiFetch = async (endPoint, { method, headers, body } = {}) => {
     body: body ? JSON.stringify(body) : null,
   };
 
-  console.log({ endPoint, config });
-
   const response = await fetch(BASE_URI + endPoint, config);
-
-  console.log(response);
 
   let data;
   if (!response.ok) {
