@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Input from '../baseComponents/Input';
 import Button from '../baseComponents/Button';
 import { validate } from '../../Utils/form';
+import { useUser } from '../../context/UserContext';
 
 const initialValues = { email: '', password: '' };
 
 const LoginForm = () => {
+  const { login } = useUser();
   const [form, setForm] = useState({
     values: initialValues,
     errors: {},
@@ -36,7 +38,7 @@ const LoginForm = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('form', form);
+    login(values);
   }
 
   return (
