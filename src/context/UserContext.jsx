@@ -5,20 +5,22 @@ import Session from '../services/sessionServices';
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [user, setuser] = useState(null);
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getUser().then((data) => {
-      setuser(data);
+      setUser(data);
     });
   }, []);
 
   const login = (credentials) => {
     Session.login(credentials)
       .then((data) => {
-        setuser(data);
+        setUser(data);
       })
       .catch((err) => {
+        setError(err);
         console.log(err);
       });
   };
@@ -26,7 +28,7 @@ const UserProvider = ({ children }) => {
   const create = (newUserData) => {
     createUser(newUserData)
       .then((data) => {
-        setuser(data);
+        setUser(data);
       })
       .catch((err) => {
         console.log(err);
@@ -34,7 +36,7 @@ const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, setuser, login, create }}>
+    <UserContext.Provider value={{ user, error, setUser, login, create }}>
       {children}
     </UserContext.Provider>
   );
