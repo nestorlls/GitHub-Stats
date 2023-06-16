@@ -13,9 +13,8 @@ const LoginForm = () => {
   });
 
   const { values, errors, touched } = form;
-  const isValid = Object.values(validate(values)).every(
-    (value) => value === ''
-  );
+  const { email, password } = validate(values);
+  const isValid = [email, password].every((value) => value === '');
 
   function handleChange(e) {
     const name = e.target.name;
