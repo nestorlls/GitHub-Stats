@@ -2,10 +2,17 @@ import React, { useState } from 'react';
 import Input from '../baseComponents/Input';
 import Button from '../baseComponents/Button';
 import { validate } from '../../Utils/form';
+import { useUser } from '../../context/UserContext';
 
-const initialValues = { email: '', password: '', firstName: '', lastName: '' };
+const initialValues = {
+  email: '',
+  password: '',
+  first_name: '',
+  last_name: '',
+};
 
 const RegisterForm = () => {
+  const { create } = useUser();
   const [form, setForm] = useState({
     values: initialValues,
     errors: {},
@@ -35,9 +42,11 @@ const RegisterForm = () => {
     }));
   }
 
+  console.log(values);
+
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('form', form);
+    create(values);
   }
 
   return (
@@ -74,10 +83,10 @@ const RegisterForm = () => {
         <div>
           <Input
             label="First Name"
-            name="firstName"
-            id="firstName"
+            name="first_name"
+            id="first_name"
             placeholder="Enter your first name"
-            type="firstName"
+            type="text"
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -88,10 +97,10 @@ const RegisterForm = () => {
         <div>
           <Input
             label="Last Name"
-            name="lastName"
-            id="lastName"
+            name="last_name"
+            id="last_name"
             placeholder="Enter your first name"
-            type="lastName"
+            type="text"
             onChange={handleChange}
             onBlur={handleBlur}
           />

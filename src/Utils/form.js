@@ -3,8 +3,8 @@ function validate(values) {
 
   errors.email = validateMail(values.email);
   errors.password = validatePassword(values.password);
-  errors.firstName = validateFirstName(values.firstName);
-  errors.lastName = validateLastName(values.lastName);
+  errors.first_name = validateFirstName(values.first_name);
+  errors.last_name = validateLastName(values.last_name);
 
   return errors;
 }
@@ -35,17 +35,17 @@ function validatePassword(password) {
   return message;
 }
 
-function validateFirstName(firstName) {
+function validateFirstName(first_name) {
   let message = '';
-  if (!firstName) {
+  if (!first_name) {
     message = 'Required';
   }
   return message;
 }
 
-function validateLastName(lastName) {
+function validateLastName(last_name) {
   let message = '';
-  if (!lastName) {
+  if (!last_name) {
     message = 'Required';
   }
   return message;
