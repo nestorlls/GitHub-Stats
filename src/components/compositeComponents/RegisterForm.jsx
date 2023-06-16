@@ -42,7 +42,7 @@ const RegisterForm = () => {
     }));
   }
 
-  console.log(values);
+  console.log(form);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -90,8 +90,8 @@ const RegisterForm = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          {errors.firstName && touched.firstName && (
-            <p className="form-error">{errors.firstName}</p>
+          {errors.first_name && touched.first_name && (
+            <p className="form-error">{errors.first_name}</p>
           )}
         </div>
         <div>
@@ -104,8 +104,8 @@ const RegisterForm = () => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          {errors.lastName && touched.lastName && (
-            <p className="form-error">{errors.lastName}</p>
+          {errors.last_name && touched.last_name && (
+            <p className="form-error">{errors.last_name}</p>
           )}
         </div>
       </div>
