@@ -1,11 +1,17 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { createUser } from '../services/userServices';
+import { createUser, getUser } from '../services/userServices';
 import Session from '../services/sessionServices';
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [user, setuser] = useState(null);
+
+  useEffect(() => {
+    getUser().then((data) => {
+      setuser(data);
+    });
+  }, []);
 
   const login = (credentials) => {
     Session.login(credentials)
