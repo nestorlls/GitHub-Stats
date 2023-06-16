@@ -16,7 +16,11 @@ const apiFetch = async (endPoint, { method, headers, body } = {}) => {
     body: body ? JSON.stringify(body) : null,
   };
 
+  console.log({ endPoint, config });
+
   const response = await fetch(BASE_URI + endPoint, config);
+
+  console.log(response);
 
   let data;
   if (!response.ok) {
@@ -28,7 +32,7 @@ const apiFetch = async (endPoint, { method, headers, body } = {}) => {
     try {
       data = await response.json();
     } catch (error) {
-      throw new Error(data.statusText);
+      throw new Error(response.statusText);
     }
 
     throw new Error(data.errors);
@@ -37,7 +41,7 @@ const apiFetch = async (endPoint, { method, headers, body } = {}) => {
   try {
     data = await response.json();
   } catch (error) {
-    data = await response.statusText();
+    data = response.statusText;
   }
 
   return data;
