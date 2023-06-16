@@ -24,7 +24,7 @@ function validateMail(mail) {
 
 function validatePassword(password) {
   let message = '';
-  if (password.length <= 6) {
+  if (password.length <= 5) {
     message = 'At least 6 chacarters long';
   }
 
