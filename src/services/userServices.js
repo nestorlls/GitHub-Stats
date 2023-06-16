@@ -9,4 +9,11 @@ function createUser(newUserData) {
   });
 }
 
-export { createUser };
+function getUser() {
+  return apiFetch('/profile').then((userData) => {
+    const { token, ...user } = userData;
+    return user;
+  });
+}
+
+export { createUser, getUser };
