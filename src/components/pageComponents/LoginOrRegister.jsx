@@ -12,9 +12,12 @@ const LoginOrRegister = () => {
   }
 
   return (
-    <div className="section">
+    <section className="section">
       <div className="container">
-        <div className="flex flex-col w-full items-center gap-2">
+        <div className="flex flex-col w-full items-center gap-2 mt-64">
+          <h1 className="text-4xl font-bold text-white mb-12">
+            Welcome to Github Stats
+          </h1>
           {isLoginOrRegister === 'login' ? <LoginForm /> : <RegisterForm />}
           <div className="text-white">
             {isLoginOrRegister === 'login' ? (
@@ -33,7 +36,7 @@ const LoginOrRegister = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
