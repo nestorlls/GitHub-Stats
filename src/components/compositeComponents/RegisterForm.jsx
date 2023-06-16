@@ -42,8 +42,6 @@ const RegisterForm = () => {
     }));
   }
 
-  console.log(form);
-
   function handleSubmit(e) {
     e.preventDefault();
     create(values);
