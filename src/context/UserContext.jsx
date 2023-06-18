@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { createUser, getUser } from '../services/userServices';
+import { createUser, getUser, updateUser } from '../services/userServices';
 import Session from '../services/sessionServices';
 
 const UserContext = createContext();
@@ -35,8 +35,19 @@ const UserProvider = ({ children }) => {
       });
   };
 
+  const update = (updateData) => {
+    updateUser(updateData)
+      .then((data) => {
+        setUser(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <UserContext.Provider value={{ user, error, setUser, login, create }}>
+    <UserContext.Provider
+      value={{ user, error, setUser, login, create, update }}>
       {children}
     </UserContext.Provider>
   );
