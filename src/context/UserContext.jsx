@@ -45,9 +45,14 @@ const UserProvider = ({ children }) => {
       });
   };
 
+  const logout = () => {
+    Session.logoutSession();
+    setUser(null);
+  };
+
   return (
     <UserContext.Provider
-      value={{ user, error, setUser, login, create, update }}>
+      value={{ user, error, setUser, login, create, update, logout }}>
       {children}
     </UserContext.Provider>
   );
