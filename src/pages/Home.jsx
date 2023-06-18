@@ -47,7 +47,7 @@ const Home = () => {
   return (
     <Layout>
       <div className="flex flex-col gap-1 w-full items-center">
-        <div className="w-2/3 mt-2">
+        <div className="w-2/3 mt-2 md:mt-2">
           <Input
             type="text"
             name="search"
