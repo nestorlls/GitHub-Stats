@@ -9,5 +9,10 @@ const Session = {
       return user;
     });
   },
+  logoutSession() {
+    return apiFetch('/logout', { method: 'DELETE' }).then(() => {
+      sessionStorage.removeItem(TOKEN);
+    });
+  },
 };
 export default Session;
