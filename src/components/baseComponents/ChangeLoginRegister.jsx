@@ -2,7 +2,7 @@ import React from 'react';
 
 const ChangeLoginRegister = ({ text, onClick, buttonText }) => {
   return (
-    <div className="text-white">
+    <div className="text-white text-center">
       <span>{text} </span>
       <button
         onClick={onClick}
