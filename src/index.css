@@ -47,7 +47,7 @@ body {
 }
 
 .container {
-  @apply md:py-12 h-screen flex;
+  @apply py-12 h-screen flex;
 }
 
 /* form */
