@@ -1,8 +1,13 @@
 import React from 'react';
 
-const Username = ({ username }) => {
+const Username = ({ username, font_weight, size }) => {
   return (
-    <p className="text-2xl font-bold text-center text-white p-1">{username}</p>
+    <p
+      className={`text-${size || ''} font-${
+        font_weight || 'normal'
+      } text-center text-white p-1`}>
+      {username}
+    </p>
   );
 };
 
