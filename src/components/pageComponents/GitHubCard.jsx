@@ -14,12 +14,16 @@ const GitHubCard = ({
   public_repos,
   public_gists,
 }) => {
+  const handleFavorite = () => {
+    console.log('Favorite');
+  };
+
   return (
     <>
       <Avatar avatar_url={avatar_url} name={name} size={52} />
-      <div className="flex justify-center gap-2">
-        <Username username={name} />
-        <Favorite isFavorite={false} />
+      <div className="flex justify-center gap-2" key={name}>
+        <Username username={name} size="2xl" font_weight="bold" />
+        <Favorite isFavorite={false} onClick={handleFavorite} />
       </div>
       <Bio bio={bio} />
       <StartSection
