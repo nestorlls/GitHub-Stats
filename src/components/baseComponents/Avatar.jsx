@@ -6,7 +6,7 @@ const Avatar = ({ avatar_url, name, size }) => {
       <img
         src={avatar_url}
         alt={name}
-        className={`rounded-full object-cover w-full h-auto w-${size} h-${size}`}
+        className={`rounded-full object-cover w-48 md:w-${size} md:h-${size}`}
       />
     </div>
   );
