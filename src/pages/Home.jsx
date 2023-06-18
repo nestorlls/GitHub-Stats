@@ -27,10 +27,9 @@ const Home = () => {
     const getUser = setTimeout(async () => {
       try {
         const response = await searchGitHubUser(gitHubUser);
-        console.log(response);
 
         if (response.message) {
-          setState({ loading: response, data: null, error: null });
+          setState({ loading: response.message, data: null, error: null });
           return;
         }
 
