@@ -28,10 +28,11 @@ const startWithoutBg = (
   </svg>
 );
 
-const Favorite = ({ isFavorite }) => {
+const Favorite = ({ isFavorite, onClick }) => {
   return (
     <div
-      className={`flex justify-center items-center text-yellow-500 p-1 cursor-pointer`}>
+      className={`flex justify-center items-center text-yellow-500 p-1 cursor-pointer`}
+      onClick={onClick}>
       {isFavorite ? startBg : startWithoutBg}
     </div>
   );
