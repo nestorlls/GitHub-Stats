@@ -11,6 +11,7 @@ const GitHubCard = ({
   followers,
   following,
   name,
+  login,
   public_repos,
   public_gists,
 }) => {
@@ -19,9 +20,9 @@ const GitHubCard = ({
   };
 
   return (
-    <>
-      <Avatar avatar_url={avatar_url} name={name} size={52} />
-      <div className="flex justify-center gap-2" key={name}>
+    <div key={login}>
+      <Avatar avatar_url={avatar_url} name={login} size={52} />
+      <div className="flex justify-center gap-2" key={login}>
         <Username username={name} size="2xl" font_weight="bold" />
         <Favorite isFavorite={false} onClick={handleFavorite} />
       </div>
@@ -31,8 +32,9 @@ const GitHubCard = ({
         following={following}
         public_repos={public_repos}
         public_gists={public_gists}
+        user={login}
       />
-    </>
+    </div>
   );
 };
 
