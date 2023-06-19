@@ -14,10 +14,10 @@ const Root = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/followers" element={<Followers />} />
-          <Route path="/followings" element={<Following />} />
-          <Route path="/public_repos" element={<PublicRepos />} />
-          <Route path="/public_gists" element={<PublicGists />} />
+          <Route path="/:user/followers" element={<Followers />} />
+          <Route path="/:user/followings" element={<Following />} />
+          <Route path="/:user/public_repos" element={<PublicRepos />} />
+          <Route path="/:user/public_gists" element={<PublicGists />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/favorites/*" element={<Favorites />} />
           <Route path="/favorites/:username" element={<FavoriteUser />} />
