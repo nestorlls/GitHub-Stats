@@ -23,4 +23,24 @@ const searchGitHubUser = async (username) => {
   return data;
 };
 
-export { searchGitHubUser };
+const apiFecthStarts = async (username, path) => {
+  const url = `${GITHUB_API_URL}${username}/${path}`;
+  const config = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${tokenSecrete}`,
+    },
+  };
+
+  let data;
+  try {
+    const response = await fetch(url, config);
+    data = await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+
+  return data;
+};
+
+export { searchGitHubUser, apiFecthStarts };
