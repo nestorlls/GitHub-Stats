@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/pageComponents/Layout';
-import FavoriteCard from '../components/pageComponents/FavoriteCard';
+import List from '../components/pageComponents/ListCard';
 import FavoritesData from '../services/favoriteServices';
 import NotFound from '../components/pageComponents/NotFound';
 
@@ -45,7 +45,7 @@ const Favorites = () => {
         </h1>
         <div>páginas</div>
         {data.length > 0 ? (
-          <FavoriteCard favorites={data} />
+          <List list={data} />
         ) : (
           <NotFound error={error} loading={loading} />
         )}
