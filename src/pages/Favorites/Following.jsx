@@ -6,23 +6,22 @@ import NotFound from '../../components/pageComponents/NotFound';
 import List from '../../components/pageComponents/ListCard';
 
 const Following = () => {
-  const { username } = useParams();
+  const { username, user } = useParams();
 
   const [following, setFollowing] = useState({
     data: [],
     error: null,
-    loading: 'Not found folling...',
+    loading: 'Not found following...',
   });
 
   const { data, error, loading } = following;
 
   useEffect(() => {
-    if (!username) return;
     setFollowing({ data: [], error: null, loading: 'loading following...' });
 
     const getFollowing = setTimeout(async () => {
       try {
-        const res = await apiFecthStarts(username, 'following');
+        const res = await apiFecthStarts(username ?? user, 'following');
         if (res.message) {
           setFollowing({ data: [], error: null, loading: res.message });
         }
@@ -34,7 +33,9 @@ const Following = () => {
     }, 500);
 
     return () => clearTimeout(getFollowing);
-  }, [username]);
+  }, [username, user]);
+
+  console.log({ username, user });
 
   return (
     <Layout>
