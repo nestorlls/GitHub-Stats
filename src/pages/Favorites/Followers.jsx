@@ -6,7 +6,7 @@ import List from '../../components/pageComponents/ListCard';
 import NotFound from '../../components/pageComponents/NotFound';
 
 const Followers = ({}) => {
-  const { username } = useParams();
+  const { username, user } = useParams();
 
   const [followers, setFollowers] = useState({
     data: [],
@@ -17,7 +17,6 @@ const Followers = ({}) => {
   const { data, error, loading } = followers;
 
   useEffect(() => {
-    if (!username) return;
     setFollowers({
       data: [],
       error: null,
@@ -26,7 +25,7 @@ const Followers = ({}) => {
 
     const getFolowers = setTimeout(async () => {
       try {
-        const res = await apiFecthStarts(username, 'followers');
+        const res = await apiFecthStarts(username ?? user, 'followers');
         if (res.message) {
           setFollowers({ data: [], error: null, loading: res.message });
         }
@@ -37,7 +36,7 @@ const Followers = ({}) => {
     }, 500);
 
     return () => clearTimeout(getFolowers);
-  }, [username]);
+  }, [username, user]);
 
   return (
     <Layout>
