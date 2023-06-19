@@ -2,30 +2,37 @@ import React from 'react';
 import Avatar from '../baseComponents/Avatar';
 import Username from '../baseComponents/Username';
 import Favorite from '../baseComponents/Favorite';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-const FavoriteCard = ({ favorites }) => {
+const List = ({ list }) => {
+  const { pathname } = useLocation();
   return (
     <div className="flex flex-col gap-2 w-full md:max-w-screen-sm">
-      {favorites?.map((favorite) => (
-        <Link to={`/favorites/${favorite.username}`} key={favorite.id}>
+      {list?.map((item) => (
+        <Link to={`/favorites/${item.username || item.login}`} key={item.id}>
           <div
-            key={favorite.id}
+            key={item.id}
             className="w-full flex justify-between bg-gray-600 rounded-lg p-2 hover:scale-105">
             <div className="flex justify-center items-center gap-1">
               <div className="w-[70px]">
-                <Avatar avatar_url={favorite.avatar_url} name={favorite.name} />
+                <Avatar
+                  avatar_url={item.avatar_url}
+                  name={item.name || item.login}
+                />
               </div>
               <div className="flex flex-col justify-start items-start">
                 <Username
-                  username={favorite.name}
+                  username={item.name || item.login}
                   size="xl"
                   font_weight="bold"
                 />
-                <Username username={favorite.username} />
+                {item.username ||
+                  (item.login && (
+                    <Username username={item.username || item.login} />
+                  ))}
               </div>
             </div>
-            <Favorite isFavorite={true} />
+            {pathname === '/favorites' && <Favorite isFavorite={true} />}
           </div>
         </Link>
       ))}
@@ -33,4 +40,4 @@ const FavoriteCard = ({ favorites }) => {
   );
 };
 
-export default FavoriteCard;
+export default List;
