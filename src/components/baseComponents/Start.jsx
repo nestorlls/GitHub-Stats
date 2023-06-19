@@ -9,15 +9,16 @@ function convertToK(count) {
   return converted;
 }
 
-const Start = ({ svg, text, count, path }) => {
+const Start = ({ svg, text, count, path, user }) => {
   const transformedCount = convertToK(count);
   const { username } = useParams();
   const { pathname } = useLocation();
 
-  const ref = pathname === '/' ? `/${path}` : `/favorites/${username}/${path}`;
+  const ref =
+    pathname === '/' ? `/${user}/${path}` : `/favorites/${username}/${path}`;
 
   return (
-    <Link to={ref}>
+    <Link to={ref} key={username ?? user}>
       <div className="w-[140px] h-[140px] bg-white p-4 rounded flex flex-col justify-center items-center">
         <img src={svg} alt={text} />
         <span className="text-2xl font-bold">{transformedCount}</span>
