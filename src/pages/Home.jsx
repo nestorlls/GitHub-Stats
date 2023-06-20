@@ -2,17 +2,25 @@ import React, { useCallback, useState } from 'react';
 import Layout from '../components/pageComponents/Layout';
 import SearchInput from '../components/compositeComponents/SearchInput';
 import UserCard from '../components/pageComponents/UserCard';
-import useGitHubUserSearch from '../Utils/UseEffect';
+import { useGitHubUserSearch } from '../Utils/cumtomeUtils';
+import { debounce } from 'lodash';
 
 const Home = () => {
   const [gitHubUser, setGitHubUser] = useState('');
 
   const { data, error, loading } = useGitHubUserSearch(gitHubUser);
 
+  const debouncedHandleChange = useCallback(
+    debounce((e) => {
+      const value = e.target.value;
+      setGitHubUser(value);
+    }, 500),
+    []
+  );
+
   const handleChange = useCallback((e) => {
-    const value = e.target.value;
-    setGitHubUser(value);
-  }, []);
+    debouncedHandleChange(e);
+  });
 
   return (
     <Layout>
