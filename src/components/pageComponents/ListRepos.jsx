@@ -4,7 +4,6 @@ import Frame from '../compositeComponents/Frame';
 import Repo from '../compositeComponents/Repo';
 
 const ListRepos = ({ list }) => {
-  console.log(list);
   return (
     <div className="flex flex-col gap-2 w-full md:max-w-screen-sm">
       {list?.map(
