@@ -1,51 +1,40 @@
 import { useParams } from 'react-router-dom';
 import Layout from '../../components/pageComponents/Layout';
-import { useEffect, useState } from 'react';
-import { apiFecthStarts } from '../../services/gitHubServices';
 import NotFound from '../../components/pageComponents/NotFound';
 import ListRepos from '../../components/pageComponents/ListRepos';
+import { getCurrentPage, totalPage } from '../../Utils/goToPage';
+import GoToPage from '../../components/compositeComponents/GoToPage';
+import { useCurrentPages, useGetStatsUser } from '../../Utils/cumtomeUtils';
 
 const PublicRepos = () => {
   const { username, user } = useParams();
 
-  const [publicRepos, setPublicRepos] = useState({
-    data: [],
-    error: null,
-    loading: 'Not having any public repos',
-  });
+  const { data, error, loading } = useGetStatsUser(username, user, 'repos');
+  const { currentPage, goNextPage, goPrevPage } = useCurrentPages();
 
-  const { data, error, loading } = publicRepos;
-
-  useEffect(() => {
-    setPublicRepos({
-      data: [],
-      error: null,
-      loading: 'loading public repos...',
-    });
-
-    const getPublicRepos = setTimeout(async () => {
-      try {
-        const response = await apiFecthStarts(username ?? user, 'repos');
-        if (response.message) {
-          setPublicRepos({ data: [], error: null, loading: response.message });
-        }
-        setPublicRepos({ data: response, error: null, loading: null });
-      } catch (error) {
-        setPublicRepos({ data: [], error: error, loading: null });
-      }
-    }, 500);
-
-    return () => clearTimeout(getPublicRepos);
-  }, [username, user]);
+  const size = 6;
+  const totalPages = totalPage(size, data);
+  const listForPage = getCurrentPage(data, currentPage, size);
 
   return (
     <Layout>
-      <div className="flex flex-col gap-1 w-full items-center mt-24 px-2">
-        <h1 className="text-2xl text-white pb-6">
-          Public Repos({data.length})
-        </h1>
-        {data.length > 0 ? (
-          <ListRepos list={data} />
+      <div className="page">
+        {data.length > 0 && (
+          <>
+            <GoToPage
+              currentPage={currentPage}
+              totalPages={totalPages}
+              limiteLower={1}
+              limiteHigher={totalPages}
+              goNextPage={goNextPage}
+              goPrevPage={goPrevPage}
+            />
+            <h1 className="page-title">Public Repos({data.length})</h1>
+          </>
+        )}
+
+        {listForPage.length > 0 ? (
+          <ListRepos list={listForPage} />
         ) : (
           <NotFound error={error} loading={loading} />
         )}
