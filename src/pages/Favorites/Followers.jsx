@@ -1,49 +1,41 @@
 import { useParams } from 'react-router-dom';
 import Layout from '../../components/pageComponents/Layout';
-import { useEffect, useState } from 'react';
-import { apiFecthStarts } from '../../services/gitHubServices';
 import List from '../../components/pageComponents/ListCard';
 import NotFound from '../../components/pageComponents/NotFound';
+import GoToPage from '../../components/compositeComponents/GoToPage';
+import { getCurrentPage, totalPage } from '../../Utils/goToPage';
+import { useCurrentPages, useGetStatsUser } from '../../Utils/cumtomeUtils';
 
 const Followers = ({}) => {
   const { username, user } = useParams();
 
-  const [followers, setFollowers] = useState({
-    data: [],
-    error: null,
-    loading: 'Not have followers...',
-  });
+  const { data, error, loading } = useGetStatsUser(username, user, 'followers');
+  const { currentPage, goNextPage, goPrevPage } = useCurrentPages();
 
-  const { data, error, loading } = followers;
-
-  useEffect(() => {
-    setFollowers({
-      data: [],
-      error: null,
-      loading: 'Loading followers...',
-    });
-
-    const getFolowers = setTimeout(async () => {
-      try {
-        const res = await apiFecthStarts(username ?? user, 'followers');
-        if (res.message) {
-          setFollowers({ data: [], error: null, loading: res.message });
-        }
-        setFollowers({ data: res, error: null, loading: null });
-      } catch (error) {
-        setFollowers({ data: [], error: error, loading: null });
-      }
-    }, 500);
-
-    return () => clearTimeout(getFolowers);
-  }, [username, user]);
+  const size = 6;
+  const totalPages = totalPage(size, data);
+  const listForPage = getCurrentPage(data, currentPage, size);
 
   return (
     <Layout>
-      <div className="flex flex-col gap-1 w-full items-center mt-24">
-        <h1 className="text-2xl text-white pb-6">Followers ({data.length})</h1>
-        {data.length > 0 ? (
-          <List list={data} />
+      <div className="page">
+        {data.length > 0 && (
+          <>
+            <GoToPage
+              currentPage={currentPage}
+              totalPages={totalPages}
+              limiteLower={1}
+              limiteHigher={totalPages}
+              goNextPage={goNextPage}
+              goPrevPage={goPrevPage}
+            />
+            <h1 className="text-2xl text-white pb-6">
+              Followers ({data.length})
+            </h1>
+          </>
+        )}
+        {listForPage.length > 0 ? (
+          <List list={listForPage} />
         ) : (
           <NotFound loading={loading} error={error} />
         )}
