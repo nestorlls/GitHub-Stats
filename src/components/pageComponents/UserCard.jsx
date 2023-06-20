@@ -3,7 +3,6 @@ import NotFound from './NotFound';
 import GitHubCard from './GitHubCard';
 
 const UserCard = ({ data, error, loading }) => {
-  console.log(data);
   return (
     <div className="w-full mt-2">
       {!data ? (
