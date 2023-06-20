@@ -3,6 +3,9 @@ import Layout from '../components/pageComponents/Layout';
 import List from '../components/pageComponents/ListCard';
 import FavoritesData from '../services/favoriteServices';
 import NotFound from '../components/pageComponents/NotFound';
+import { getCurrentPage, totalPage } from '../Utils/goToPage';
+import GoToPage from '../components/compositeComponents/GoToPage';
+import { useCurrentPages } from '../Utils/cumtomeUtils';
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState({
@@ -11,6 +14,7 @@ const Favorites = () => {
     loading: 'No favorites...',
   });
 
+  const { currentPage, goNextPage, goPrevPage } = useCurrentPages();
   const { data, error, loading } = favorites;
 
   useEffect(() => {
@@ -37,15 +41,30 @@ const Favorites = () => {
     return () => clearTimeout(getFavoritesFrom);
   }, []);
 
+  const size = 6;
+  const totalPages = totalPage(size, data);
+  const listForPage = getCurrentPage(data, currentPage, size);
+
   return (
     <Layout>
-      <div className="flex flex-col items-center w-full p-4">
-        <h1 className="text-2xl text-white">
-          Favorites <span>({data?.length})</span>
-        </h1>
-        <div>páginas</div>
-        {data.length > 0 ? (
-          <List list={data} />
+      <div className="page">
+        {data.length > 0 && (
+          <>
+            <GoToPage
+              currentPage={currentPage}
+              totalPages={totalPages}
+              limiteLower={1}
+              limiteHigher={totalPages}
+              goNextPage={goNextPage}
+              goPrevPage={goPrevPage}
+            />
+            <h1 className="text-2xl text-white pb-6">
+              Favorites ({data.length})
+            </h1>
+          </>
+        )}
+        {listForPage.length > 0 ? (
+          <List list={listForPage} />
         ) : (
           <NotFound error={error} loading={loading} />
         )}
