@@ -6,7 +6,7 @@ const NotFound = ({ error, loading }) => {
   return (
     <div className="flex flex-col gap-4 w-full items-center text-white">
       <BsGithub size={100} className={animate} />
-      <p className="text-2xl">{loading}</p>
+      <p className="text-2xl">{loading || 'Not found'}</p>
       {error && <p className="text-red-500">{error}</p>}
     </div>
   );
