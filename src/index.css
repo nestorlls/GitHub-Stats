@@ -62,3 +62,13 @@ body {
 .form-error {
   @apply text-red-500;
 }
+
+/* *page */
+
+.page {
+  @apply flex flex-col gap-2 w-full items-center mt-8;
+}
+
+.page-title {
+  @apply text-2xl text-white pb-6;
+}
