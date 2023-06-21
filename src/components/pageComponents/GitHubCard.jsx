@@ -1,5 +1,3 @@
-// import avatar from '../../assets/icons/avatar.svg';
-import { useState } from 'react';
 import Avatar from '../baseComponents/Avatar';
 import Bio from '../baseComponents/Bio';
 import FavoriteIcon from '../baseComponents/Favorite';
@@ -17,24 +15,32 @@ const GitHubCard = ({
   public_repos,
   public_gists,
 }) => {
-  const { favorites } = useFavorites();
-  const [addOrRemoveToFavorites, setAddOrRemoveToFavorites] = useState(false);
+  const { favorites, createFavorite, removeFavorite } = useFavorites();
 
-  const handleFavorite = () => {
-    console.log('Favorite');
-    setAddOrRemoveToFavorites(!addOrRemoveToFavorites);
-  };
-
-  const isFAvorite = favorites.data.find((fav) => fav.username === login)
+  const isFavorite = favorites.data.find((fav) => fav.username === login)
     ? true
     : false;
+
+  const data = {
+    name: name || login,
+    username: login,
+    avatar_url,
+  };
+
+  function handleFavorite() {
+    if (!isFavorite) {
+      createFavorite(data);
+    } else {
+      removeFavorite(data);
+    }
+  }
 
   return (
     <div key={login}>
       <Avatar avatar_url={avatar_url} name={login} size={52} />
       <div className="flex justify-center gap-2" key={login}>
         <Username username={name} size="2xl" font_weight="bold" />
-        <FavoriteIcon isFavorite={isFAvorite} onClick={handleFavorite} />
+        <FavoriteIcon isFavorite={isFavorite} onClick={handleFavorite} />
       </div>
       <Bio bio={bio} />
       <StartSection
