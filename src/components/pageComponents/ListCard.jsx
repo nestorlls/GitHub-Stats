@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from '../baseComponents/Avatar';
 import Username from '../baseComponents/Username';
-import Favorite from '../baseComponents/Favorite';
+import FavoriteIcon from '../baseComponents/Favorite';
 import { Link, useLocation } from 'react-router-dom';
 
 const List = ({ list }) => {
@@ -32,7 +32,7 @@ const List = ({ list }) => {
                   ))}
               </div>
             </div>
-            {pathname === '/favorites' && <Favorite isFavorite={true} />}
+            {pathname === '/favorites' && <FavoriteIcon isFavorite={true} />}
           </div>
         </Link>
       ))}
