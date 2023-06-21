@@ -7,7 +7,7 @@ Explora las principales estadísticas de la comunidad de Github y guarda tus usu
 
 ¡Si quieres probar en tu local!
 
-## 🛠 intalación y configuración 
+## 🛠 instalación y configuración 
 
 1. Create un token secreto de Github siguiendo los pasos de este tuturial https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 2. Crear el archivo `.env` en la raíz del proyecto basado en `.env.example` y colocar entre comillas tu "GITHUB_TOKEN".
