@@ -7,8 +7,28 @@ import Followers from '../pages/Favorites/Followers';
 import Following from '../pages/Favorites/Following';
 import PublicRepos from '../pages/Favorites/PublicRepos';
 import PublicGists from '../pages/Favorites/PublicGists';
+import { useFavorites } from '../context/FavoriteContext';
+import { useEffect } from 'react';
+import FavoritesData from '../services/favoriteServices';
 
 const Root = () => {
+  const { setFavorites, fetchFavorites } = useFavorites();
+
+  // get all our favorites user
+  useEffect(() => {
+    setFavorites({
+      data: [],
+      error: null,
+      loading: 'Loading favorites...',
+    });
+
+    const fetchFavorite = setTimeout(() => {
+      fetchFavorites(FavoritesData.getFavorites);
+    }, 500);
+
+    return () => clearTimeout(fetchFavorite);
+  }, []);
+
   return (
     <>
       <BrowserRouter>
