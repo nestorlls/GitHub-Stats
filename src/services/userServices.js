@@ -20,7 +20,6 @@ function updateUser(updateData) {
   return apiFetch('/profile', { method: 'PATCH', body: updateData }).then(
     (userData) => {
       const { token, ...user } = userData;
-      window.location.reload();
       return user;
     }
   );
