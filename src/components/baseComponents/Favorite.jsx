@@ -28,7 +28,7 @@ const startWithoutBg = (
   </svg>
 );
 
-const Favorite = ({ isFavorite, onClick }) => {
+const FavoriteIcon = ({ isFavorite, onClick }) => {
   return (
     <div
       className={`flex justify-center items-center text-yellow-500 p-1 cursor-pointer`}
@@ -38,4 +38,4 @@ const Favorite = ({ isFavorite, onClick }) => {
   );
 };
 
-export default Favorite;
+export default FavoriteIcon;
