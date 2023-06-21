@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useState } from 'react';
+import FavoritesData from '../services/favoriteServices';
 
 const FavoriteContext = createContext();
 
@@ -8,6 +9,8 @@ const FavoriteProvider = ({ children }) => {
     error: null,
     loading: 'No favorites...',
   });
+
+  const { data } = favorites;
 
   const fetchFavorites = async (callback) => {
     try {
@@ -24,9 +27,50 @@ const FavoriteProvider = ({ children }) => {
     }
   };
 
+  const createFavorite = (newFavorite) => {
+    FavoritesData.createFavorite(newFavorite)
+      .then((data) => {
+        setFavorites({
+          ...favorites,
+          data: [...favorites.data, data],
+        });
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const removeFavorite = (favoriteData) => {
+    const favorite = data.find(
+      (favorite) =>
+        favorite.name === favoriteData.name ||
+        favorite.name === favoriteData.login
+    );
+
+    FavoritesData.removeFavorite(favorite.id)
+      .then(() => {
+        const newFavorites = data.filter(
+          (fav) => fav.name !== favorite.name && fav.name !== favorite.login
+        );
+
+        console.log(newFavorites);
+        setFavorites({
+          ...favorites,
+          data: newFavorites,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const value = useMemo(
-    () => ({ favorites, setFavorites, fetchFavorites }),
-    [favorites, setFavorites, fetchFavorites]
+    () => ({
+      favorites,
+      setFavorites,
+      fetchFavorites,
+      createFavorite,
+      removeFavorite,
+    }),
+    [favorites, setFavorites, fetchFavorites, createFavorite, removeFavorite]
   );
 
   return (
